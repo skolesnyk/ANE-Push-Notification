@@ -101,11 +101,13 @@ public class C2DMBroadcastReceiver extends BroadcastReceiver
 			}
 			else if (Extension.context != null)
 			{
+				Extension.log("handleMessage: Dispatch event to app in foreground");
 				Extension.context.dispatchStatusEventAsync("NOTIFICATION_RECEIVED_WHEN_IN_FOREGROUND", params);
 			}
 		}
 		catch (Exception e)
 		{
+			Extension.log("handleMessage: error");
 			e.printStackTrace();
 		}
 	}
