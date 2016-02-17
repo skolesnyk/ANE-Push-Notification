@@ -31,6 +31,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.distriqt.extension.util.Resources;
 
@@ -42,9 +44,14 @@ public class CreateNotificationTask extends AsyncTask<Void, Void, Boolean>
 	private Intent _intent;
 	private Bitmap _picture;
 
+<<<<<<< HEAD
 	private String _notifSender;
 	private String _notifTrackingType;
 	
+=======
+	private static final String TAG = "CreateNotificationTask";
+
+>>>>>>> 859c8e15d8dcfcb3ac075d18a79d9581167356bd
 	public CreateNotificationTask(Context context, Intent intent)
 	{
 		super();
@@ -141,17 +148,17 @@ public class CreateNotificationTask extends AsyncTask<Void, Void, Boolean>
 			Extension.log("Couldn't create push notification: _context or _intent was null (CreateNotificationTask.onPostExecute)");
 			return;
 		}
-		
+
 		// Notification texts
-		CharSequence contentTitle = _intent.getStringExtra("contentTitle");
+		CharSequence contentTitle = _intent.hasExtra("contentTitle") ? _intent.getStringExtra("contentTitle") : _intent.hasExtra("gcm.notification.title") ? _intent.getStringExtra("gcm.notification.title") : "Title not found";
 		if (contentTitle.length() > 22)
 		{
 			contentTitle = contentTitle.subSequence(0, 20) + "...";
 		}
-		CharSequence contentText = _intent.getStringExtra("contentText");
-		CharSequence tickerText = _intent.getStringExtra("tickerText");
+		CharSequence contentText = _intent.hasExtra("contentText") ? _intent.getStringExtra("contentText") : _intent.hasExtra("gcm.notification.body") ? _intent.getStringExtra("gcm.notification.body") : "";
+		CharSequence tickerText = _intent.hasExtra("tickerText") ? _intent.getStringExtra("tickerText") : "";
 		
-		String largeIconResourceId = _intent.getStringExtra("largeIconResourceId");
+		String largeIconResourceId = _intent.hasExtra("largeIconResourceId") ? _intent.getStringExtra("largeIconResourceId") : _intent.hasExtra("gcm.notification.icon") ? _intent.getStringExtra("gcm.notification.icon") : null;
 		
 		// Notification images
 		int smallIconId = Resources.getResourseIdByName(_context.getPackageName(), "drawable", "status_icon");

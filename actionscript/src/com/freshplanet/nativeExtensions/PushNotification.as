@@ -174,6 +174,7 @@ package com.freshplanet.nativeExtensions
      		
 		public function setIsAppInForeground(value:Boolean):void
 		{
+			trace("setAppInForeground: " + value);
 			if (this.isPushNotificationSupported)
 			{
 				extCtx.call("setIsAppInForeground", value);
